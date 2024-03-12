@@ -38,12 +38,12 @@ builder:
   dockerfile: Dockerfile.production
   remote:
     arch: amd64
-    host: ssh://root@builder-versacloud-io
+    host: ssh://root@builder-d1cloud-io
 
 accessories:
   redis:
     image: redis/redis-stack:latest
-    host: versa-vision-versacloud-io
+    host: ai-playground-d1cloud-io
     port: "6379:6379"
     directories:
       - redis-data:/data
