@@ -154,13 +154,12 @@ dd {
 
 .logo {
     margin: 20px 0;
+    display: block;
+    height: auto;
+    text-align: center;
 }
 
 .logo svg {
-    width: 100px;
-    height: auto;
-    margin: 0 auto;
-    display: block;
 }
 
 #progress {

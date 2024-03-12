@@ -1,0 +1,31 @@
+<!-- element -->
+<textarea id="entry">
+    <p>AI Playground...</p>
+    <p>Enter your text here.</p>
+    <p>Go on.</p>
+</textarea>
+
+<!-- js -->
+<script src="/redactor.min.js"></script>
+<script src="/ai.min.js"></script>
+
+<!-- call -->
+<script>
+Redactor('#entry', {
+    plugins: ['ai'],
+    ai: {
+        items: {
+            set: true,
+            improve: { title: 'Improve it', command: 'ai.set', params: { prompt: 'Improve it' } },
+            simplify: { title: 'Simplify it', command: 'ai.set', params: { prompt: 'Simplify it' } },
+            fix: { title: 'Fix any mistakes', command: 'ai.set', params: { prompt: 'Fix any mistakes' } }
+        },
+        text: {
+            url: '/process',
+            endpoint: 'https://api.openai.com/v1/chat/completions',
+            model: 'gpt-3.5-turbo',
+            stream: false
+        }
+    }
+});
+</script>

@@ -5,19 +5,14 @@
     <div>
         <input type="file" name="file" required>
     </div>
-    <!--
-    <div>
-        <label for="question">Frage an die KI (Optional)</label>
-        <input type="text" id="question" name="prompt">
-    </div>
-    -->
+
     <div>
         <button type="submit" class="btn">Send</button>
     </div>
 </form>
 
 <div id="progress" style="display: none">
-    <progress id="progressbar" max="100" value="0">0</progress>
+    <center>In Progress...</center>
 </div>
 
 <script>
@@ -32,14 +27,5 @@
         setTimeout( function () {
             form.submit();
         }, 4400);
-
-        var count = 0;
-        var innterval = setInterval(function() {
-            if (count == 100)
-                clearInterval(innterval);
-                // $("#uploader").submit();
-            count++;
-            $('#progressbar').val(count);
-        }, 40);
     });
 </script>

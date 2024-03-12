@@ -24,9 +24,10 @@ class ApplicationController < Sinatra::Base
   end
 
   if ENV['RACK_ENV'] == 'production'
-    $redis = Redis.new(url: ENV['REDIS_URL'])
-  else
+    #$redis = Redis.new(url: ENV['REDIS_URL'])
     $redis = Redis.new(url: 'redis://host.docker.internal:6379/1')
+  else
+    $redis = Redis.new(url: 'redis://localhost:6379/1')
   end
 
   CACHE_VERSION = 1
@@ -39,76 +40,37 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    ''
+    erb :index
   end
 
-  get '/api/process-image' do
-    unless params[:url]
-      status 400
-      return { error: "Missing url parameter" }.to_json
-    end
-
-    url = params[:url]
-
-    begin
-      response = HTTP.get(url)
-
-      if response.status.success?
-        tmpfile = Tempfile.new('download')
-
-        File.open(tmpfile.path, 'wb') do |file|
-          file.write(response.to_s)
-        end
-
-        original_sha256 = Digest::SHA256.file(tmpfile.path).hexdigest
-        cache_key       = "cache:#{CACHE_VERSION}-#{original_sha256}"
-
-        content   = $redis.get(cache_key)
-        cache_hit = true
-        cache_hit = false if content.blank?
-
-        if cache_hit
-          puts "CACHE EXISTS: #{cache_key}"
-          puts "CONTENT: #{content}"
-        else
-          destination_original_image_path = "./public/uploads/original_#{original_sha256}.jpg"
-          FileUtils.cp(tmpfile.path, destination_original_image_path)
-
-          protocol   = request.env['rack.url_scheme']
-          host       = request.env['HTTP_HOST']
-
-          image_url  = "#{protocol}://#{host}/#{destination_original_image_path.gsub('./public/', '')}"
-          puts "image_url: #{image_url}"
-          # content    = VisionJob.perform_async(image_url, cache_key)
-          content    = VisionJob.new.perform(image_url, cache_key)
-        end
-
-        # poll for results
-        loop do
-          content = $redis.get(cache_key)
-          break unless content.blank?
-
-          sleep 0.1
-        end
-
-        status 200
-        content
-      else
-        status response.code
-        { error: "Failed to download the file" }.to_json
-      end
-    rescue HTTP::ConnectionError => e
-      status 500
-      { error: "Connection Error: #{e.message}" }.to_json
-    ensure
-      tmpfile.unlink if tmpfile
-    end
+  get '/text' do
+    erb :text
   end
 
-
-  get '/demo' do
+  get '/image' do
     @site_url = "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
     erb :demo
+  end
+
+  post '/process' do
+    api_key = ENV['OPEN_AI_API_KEY']
+    puts "openai_api_key: #{api_key}"
+
+    # API endpoint
+    url = params[:url]
+    puts "url: #{url}"
+
+    # Data payload
+    # data = JSON.parse(ARGV[1]) # Nimmt an, dass die Daten als zweites Argument im JSON-Format übergeben werden
+    data =
+    data = JSON.parse(params[:data]) # Nimmt an, dass die Daten als zweites Argument im JSON-Format übergeben werden
+    puts "data: #{data}"
+puts "Sending request to OpenAI API..."
+    response = HTTP.headers('Content-Type' => 'application/json', 'Authorization' => "Bearer #{api_key}")
+                   .post('https://api.openai.com/v1/chat/completions', json: data)
+puts "Response: #{response}"
+    content_type 'application/json'
+    response.body.to_s
   end
 
   post '/upload' do
