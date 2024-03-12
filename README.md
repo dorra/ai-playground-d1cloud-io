@@ -1,4 +1,4 @@
-# s3-d1cloud-io
+# ai-playground-d1cloud-io
 
 ## Development
 
@@ -25,3 +25,11 @@
 
 * Push env changes: `kamal env push`
 * Deploy: `kamal deploy`
+
+## Access
+
+Access this container via tailscale with:
+`ssh root@ai-playground-d1cloud-io`
+
+Access this container via cloudflare with:
+`https://ai-playground.d1cloud.io`
