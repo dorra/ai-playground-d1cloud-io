@@ -1,0 +1,45 @@
+<form action="/upload" method="post" enctype="multipart/form-data" id="uploader">
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.563 28.813"><path d="M21.137 22.406c-.813-2.041-1.64-3.75-2.484-5.125a141.468 141.468 0 0 0-2.282-3.61 29.632 29.632 0 0 1-1.672-2.843A6.174 6.174 0 0 1 14.043 8V3.219h.813c.229 0 .422-.078.578-.235a.786.786 0 0 0 .234-.578V.812a.786.786 0 0 0-.234-.578.786.786 0 0 0-.578-.234h-8a.786.786 0 0 0-.578.234.786.786 0 0 0-.235.579v1.593c0 .23.078.422.235.578a.786.786 0 0 0 .578.235h.812V8c0 1.02-.219 1.964-.656 2.828a29.631 29.631 0 0 1-1.672 2.844 141.474 141.474 0 0 0-2.281 3.61c-.844 1.374-1.672 3.083-2.485 5.124-.52 1.313-.687 2.709-.5 4.188.188 1.479 3.782 2.218 10.782 2.218s10.593-.74 10.78-2.218c.188-1.48.022-2.875-.5-4.188Zm-2.563 2.813c-.562.166-1.447.328-2.656.484-1.208.156-2.896.235-5.062.235-2.167 0-3.854-.079-5.063-.235-1.208-.156-2.094-.318-2.656-.484a.608.608 0 0 1-.39-.39.939.939 0 0 1-.016-.61c.187-.542.458-1.25.812-2.125.354-.875.844-1.834 1.469-2.875.75-1.271 1.505-1.943 2.266-2.016.76-.073 1.515.1 2.265.516.75.416 1.485.9 2.203 1.453.72.552 1.401.828 2.047.828 1.313 0 2-.344 2.063-1.031.062-.688.343-.604.843.25.625 1.041 1.115 2 1.47 2.875.353.875.624 1.583.812 2.125a.939.939 0 0 1-.016.61.608.608 0 0 1-.39.39Zm8.282 3.593" style="fill:#000"/></svg>
+
+    <div>
+        <input type="file" name="file" required>
+    </div>
+    <!--
+    <div>
+        <label for="question">Frage an die KI (Optional)</label>
+        <input type="text" id="question" name="prompt">
+    </div>
+    -->
+    <div>
+        <button type="submit" class="btn">Send</button>
+    </div>
+</form>
+
+<div id="progress" style="display: none">
+    <progress id="progressbar" max="100" value="0">0</progress>
+</div>
+
+<script>
+    $("#uploader").on("submit", function(e) {
+        var form = this;
+
+        e.preventDefault();
+
+        $("#uploader").hide();
+        $('#progress').show();
+
+        setTimeout( function () {
+            form.submit();
+        }, 4400);
+
+        var count = 0;
+        var innterval = setInterval(function() {
+            if (count == 100)
+                clearInterval(innterval);
+                // $("#uploader").submit();
+            count++;
+            $('#progressbar').val(count);
+        }, 40);
+    });
+</script>

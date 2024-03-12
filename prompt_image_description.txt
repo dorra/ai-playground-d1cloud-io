@@ -1,0 +1,6 @@
+Benutze das Bild aus dieser Nachricht.
+
+Was ist auf diesem Bild zu sehen? Beschreibe in kurzen Sätzen, was du siehst. Verwende eine einfache Sprache. Erstelle keine Überschrift.
+
+Gib das Ergebnis als HTML-Block aus. Gebe nur den Inhalt innerhalb des <body> tags aus. Verwende keine anderen Tags als die unten aufgeführten.
+p, ul, li, ol, h1, h2, h3

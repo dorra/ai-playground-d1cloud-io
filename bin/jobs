@@ -1,0 +1,2 @@
+#!/bin/bash
+bundle exec sidekiq -r ./app/jobs/vision_job.rb

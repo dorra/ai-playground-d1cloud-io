@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Verdana, sans-serif;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    background: #eee;
+    background: url('/src/assets/bg.jpg') no-repeat;
+    background-size: cover;
+}
+
+#app {
+    width: 100%;
+    min-height: 100%;
+}
+
+#app  > .dropzone {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.dropzone__box {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.dropzone-clickable {
+    /* width: 200px;
+    height: 200px;
+    background: red;
+    border-radius: 50%; */
+}
+
+.dropzone__message {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .8);
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, .6) 0 0 20px;
+    text-transform: uppercase;
+}
+
+.dropzone__item {
+    width: 90vw;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, .6) 0 0 20px;
+    background: rgba(255, 255, 255, .9);
+}
+
+.dropzone__item-thumbnail {
+
+}
+
+.dropzone__item-thumbnail img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    display: block;
+    border-radius: 4px;
+}
+
+.dropzone__item-controls {
+
+}
+
+.dropzone__progress {
+    margin-bottom: 10px;
+}
+
+.dropzone__progress-bar {
+    /* width: 100%; */
+    transition: width 300ms ease-in-out;
+}
+
+.dropzone--added .dropzone__progress {
+    opacity: 0;
+    transition: opacity 0.4s ease-in;
+}
+
+
+.dropzone-processing .dropzone__progress    {
+    opacity: 1;
+    transition: all 0.2s linear;
+}
+
+.dropzone--has-thumbnail {
+
+}
+
+.dropzone__details {
+
+}
+
+.dropzone__file-size {
+
+}
+
+.dropzone__filename {
+
+}
+
+.container {
+    padding: 10px;
+}
+
+.content {
+    padding: 10px;
+    background: rgba(255, 255, 255, .9);
+    border-radius: 4px;
+}
+
+.content h1 {
+    margin: 0 0 20px;
+    font-size: 2rem;
+}
+
+.content img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.content h2 {
+    margin: 0 0 12px;
+    font-size: 1.5rem;
+}
+
+.content hr {
+    height: 0;
+    margin: 20px 0;
+    border: 1px solid #eee;
+}
