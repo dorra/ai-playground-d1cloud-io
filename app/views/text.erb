@@ -1,9 +1,12 @@
 <!-- element -->
 <textarea id="entry">
-    <p>AI Playground...</p>
-    <p>Enter your text here.</p>
-    <p>Go on.</p>
-</textarea>
+    <p>Schärfere Regeln nach den GDL-Streiks?.</p>
+    <p>Eine Lösung des Tarifstreits zwischen Bahn und GDL ist nicht in Sicht. Aber es deutet sich etwas anderes an: Wenn dieser Tarifstreit beendet ist, könnte das Streikrecht in Deutschland verschärft werden.</p>
+    <p>Das Urteile des Frankfurter Arbeitsgerichts und des Hessischen Landesarbeitsgericht bedeuten zunächst einen Sieg für GDL-Chef Claus Weselsky. Die Bahn hatte versucht, den aktuell laufenden Streik im letzten Augenblick gerichtlich stoppen zu lassen. Sie scheiterte damit aber vor beiden Instanzen.</p>
+    <p>Langfristig könnte Weselsky, der bald in den Ruhestand geht, aber als derjenige in Erinnerung bleiben, der Auslöser für eine Verschärfung des Streikrechts war. Denn angesichts der unnachgiebigen Haltung des GDL-Chefs und der großen Auswirkungen von Streiks bei einem Unternehmen der kritischen Infrastruktur wie der Bahn, mehren sich die Rufe nach neuen gesetzlichen Regeln für Streiks in solchen Betrieben.</p>
+    <p>Auch Verkehrsminister Volker Wissing machte klar, dass sich die Politik dieses Themas vermutlich demnächst annehmen wird. Es sei klar, dass sich die Bundesregierung in einen laufenden Tarifkonflikt nicht so einmischen könne, dass sie Gesetzesänderungen androhe, sagte der FDP-Politiker im ARD-Morgenmagazin. "Aber klar ist auch, dass wir uns das ganz genau anschauen werden. Wenn dieser Tarifkonflikt beigelegt ist, muss geprüft werden, ob wir eine Änderung brauchen oder nicht."</p>
+    <p>Pro Bahn: "Für die krittische Infrastruktuhr neue Reglen schaffen."</p>
+  </textarea>
 
 <!-- js -->
 <script src="/redactor.min.js"></script>
@@ -16,15 +19,17 @@ Redactor('#entry', {
     ai: {
         items: {
             set: true,
-            improve: { title: 'Improve it', command: 'ai.set', params: { prompt: 'Improve it' } },
-            simplify: { title: 'Simplify it', command: 'ai.set', params: { prompt: 'Simplify it' } },
-            fix: { title: 'Fix any mistakes', command: 'ai.set', params: { prompt: 'Fix any mistakes' } }
+            improve: { title: 'Verbessern', command: 'ai.set', params: { prompt: 'Verbessere diesen Text. Nutze Deutsch als Ausgabesprache.' } },
+            simplify: { title: 'Vereinfachen', command: 'ai.set', params: { prompt: 'Vereinfache diesen Text. Nutze Deutsch als Ausgabesprache.' } },
+            forkids: { title: 'Für Kinder', command: 'ai.set', params: { prompt: 'Schreibe diesen Text für 14 Jährige Kinder neu. Nutze Deutsch als Ausgabesprache.' } },
+            funny: { title: 'Mach dich Lustig', command: 'ai.set', params: { prompt: 'Schreibe diesen Text neu. Mach dich über den Inhalt lustig. Nutze Deutsch als Ausgabesprache.' } },
+            fix: { title: 'Korrigieren', command: 'ai.set', params: { prompt: 'Korrigiere alle Fehler.  Nutze Deutsch als Ausgabesprache.' } }
         },
         text: {
-            url: '/process',
+            url: '/process-stream',
             endpoint: 'https://api.openai.com/v1/chat/completions',
             model: 'gpt-3.5-turbo',
-            stream: false
+            stream: true
         }
     }
 });

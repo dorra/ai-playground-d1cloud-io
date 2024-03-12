@@ -10,6 +10,9 @@ class ApplicationController < Sinatra::Base
   set :session_secret, 'f1eb1761af76d00f3b9ddb1e82befeb48508f1c0d9279c89987a0a43bf8d524b'
   enable :sessions
 
+  helpers Sinatra::Streaming
+
+
   configure :development do
     set :logging, Logger::DEBUG
 
@@ -53,24 +56,31 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/process' do
-    api_key = ENV['OPEN_AI_API_KEY']
-    puts "openai_api_key: #{api_key}"
-
-    # API endpoint
-    url = params[:url]
-    puts "url: #{url}"
-
-    # Data payload
-    # data = JSON.parse(ARGV[1]) # Nimmt an, dass die Daten als zweites Argument im JSON-Format übergeben werden
-    data =
-    data = JSON.parse(params[:data]) # Nimmt an, dass die Daten als zweites Argument im JSON-Format übergeben werden
-    puts "data: #{data}"
-puts "Sending request to OpenAI API..."
+    content_type 'application/json'
+    api_key  = ENV['OPEN_AI_API_KEY']
+    url      = params[:url]
+    data     = JSON.parse(params[:data]) # Nimmt an, dass die Daten als zweites Argument im JSON-Format übergeben werden
     response = HTTP.headers('Content-Type' => 'application/json', 'Authorization' => "Bearer #{api_key}")
                    .post('https://api.openai.com/v1/chat/completions', json: data)
-puts "Response: #{response}"
-    content_type 'application/json'
+
     response.body.to_s
+  end
+
+  post '/process-stream' do
+    content_type 'text/event-stream'
+    cache_control :no_cache
+    api_key = ENV['OPEN_AI_API_KEY']
+    url     = params[:url]
+    data    = JSON.parse(params[:data]) # Nimmt an, dass die Daten als zweites Argument im JSON-Format übergeben werden
+
+    stream do |out|
+      response = HTTP.headers('Content-Type' => 'application/json', 'Authorization' => "Bearer #{api_key}")
+                     .post('https://api.openai.com/v1/chat/completions', json: data)
+
+      response.body.each do |chunk|
+        out << chunk
+      end
+    end
   end
 
   post '/upload' do
