@@ -32,4 +32,6 @@ Access this container via tailscale with:
 `ssh root@ai-playground-d1cloud-io`
 
 Access this container via cloudflare with:
-`https://ai-playground.d1cloud.io`
+* [https://ai-playground.d1cloud.io](https://https://ai-playground.d1cloud.io)
+* [https://ai-playground.d1cloud.io/text](https://https://ai-playground.d1cloud.io/text)
+* [https://ai-playground.d1cloud.io/image](https://https://ai-playground.d1cloud.io/image)
