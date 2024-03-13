@@ -69,10 +69,14 @@ class ApplicationController < Sinatra::Base
   post '/process-stream' do
     content_type 'text/event-stream'
     cache_control :no_cache
-    api_key = ENV['OPEN_AI_API_KEY']
-    url     = params[:url]
-    data    = JSON.parse(params[:data]) # Nimmt an, dass die Daten als zweites Argument im JSON-Format übergeben werden
+    api_key        = ENV['OPEN_AI_API_KEY']
+    url            = params[:url]
+    data           = JSON.parse(params[:data])
+    filename       = data["messages"][1]["content"]
+    prompt         = File.read(File.join('prompts', filename))
+    data["messages"][1]["content"] = prompt
 
+    puts "data: #{data}"
     stream do |out|
       response = HTTP.headers('Content-Type' => 'application/json', 'Authorization' => "Bearer #{api_key}")
                      .post('https://api.openai.com/v1/chat/completions', json: data)
