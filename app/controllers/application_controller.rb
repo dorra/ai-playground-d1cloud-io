@@ -142,8 +142,8 @@ class ApplicationController < Sinatra::Base
 
       @resized_image_url = results["url"]
 
-      modified_image_base_url = "https://img-app-1.versacommerce.io/resize=486x486/canvas=512x512/remove-background=true/background-image=coldgrey.png/convert_to=png/++/"
-      @modified_image_url = "#{modified_image_base_url}#{@resized_image_url.gsub('https://', '')}"
+      modified_image_base_url = "https://img.versacommerce.io/resize=486x486/canvas=512x512/remove-background=true/background-image=coldgrey.png/convert_to=png/++/"
+      @modified_image_url = "#{modified_image_base_url}#{@resized_image_url.gsub('https://', '').gsub('http://', '')}"
 
       @content_product_description    = results["product_description_html"]
       @content_product_classification = results["product_classification_html"]
