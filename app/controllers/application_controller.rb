@@ -27,8 +27,7 @@ class ApplicationController < Sinatra::Base
   end
 
   if ENV['RACK_ENV'] == 'production'
-    #$redis = Redis.new(url: ENV['REDIS_URL'])
-    $redis = Redis.new(url: 'redis://host.docker.internal:6379/1')
+    $redis = Redis.new(url: ENV['REDIS_URL'])
   else
     $redis = Redis.new(url: 'redis://localhost:6379/1')
   end
