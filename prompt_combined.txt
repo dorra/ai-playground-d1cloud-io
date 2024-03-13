@@ -49,8 +49,6 @@ ERKLÄRUNG FÜR EINE KLASSIFIZIERUNG:
 4) Tags/Schlagwörter: Keywords, die mit dem Produkt verbunden sind und die Suche erleichtern.
 5) Farbe: Die Farbe oder Farben des Produkts.
 6) Geschlecht: Das Geschlecht, für das das Produkt bestimmt ist.
-7) Material: Das Material, aus dem das Produkt besteht.
-13) EAN/GTIN: Die EAN/GTIN des Produkts, wenn bekannt oder auf dem Bild vorhanden.
 
 
 SO ERWARTE ICH DAS ERGEBNIS DER KLASSIFIZIERUNG:
