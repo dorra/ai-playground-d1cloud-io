@@ -52,7 +52,7 @@ class ApplicationController < Sinatra::Base
 
   get '/image' do
     @site_url = "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
-    erb :demo
+    erb :image
   end
 
   post '/process' do
